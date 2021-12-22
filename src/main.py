@@ -32,7 +32,6 @@ def algoritmos():
 def main():
     intro()
     algoritmos()
-    
 
 
 if __name__=='__main__':
