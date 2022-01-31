@@ -3,7 +3,7 @@ class UndirectedGraphicalModels():
     def __init__(self) -> None:
         pass
 
-    def algo1(self):
+    def modified_regression(self):
         '''
         -------------------------------------------------------------------
         Algorithm 19.1 A Modified Regression Algorithm for Estimation of an 
@@ -26,7 +26,7 @@ class UndirectedGraphicalModels():
     #     S = (1/N)*sum((x[i] - x_mean)*(x[i] - x_mean).T)
     #     return S
 
-    def algo2(self):
+    def graphical_lasso(self):
         '''
         -------------------------------------------------------------------
         Algorithm 19.2 Graphical Lasso
