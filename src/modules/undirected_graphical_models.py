@@ -3,7 +3,7 @@ class UndirectedGraphicalModels():
     def __init__(self) -> None:
         pass
 
-    def algo1():
+    def algo1(self):
         '''
         -------------------------------------------------------------------
         Algorithm 19.1 A Modified Regression Algorithm for Estimation of an 
@@ -25,3 +25,18 @@ class UndirectedGraphicalModels():
     # def empirical_covariance_matrix():
     #     S = (1/N)*sum((x[i] - x_mean)*(x[i] - x_mean).T)
     #     return S
+
+    def algo2(self):
+        '''
+        -------------------------------------------------------------------
+        Algorithm 19.2 Graphical Lasso
+        -------------------------------------------------------------------
+        1. Initialize W = S + λI. The diagonal of W remains unchanged in
+        what follows.
+        2. Repeat for j = 1, 2, . . . p, 1, 2, . . . p, . . . until convergence:
+
+        [CONTINUE...]
+
+        '''
+        pass
+
