@@ -1,51 +1,71 @@
 import csv
 import os
 
-ALGORITMOS = ['ALGO1', 'ALGO2', 'ALGO3']
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+ALGORITMOS = ['Graphical Lasso Algorithm', 'Modified Regression Algorithm', 'Markov Chain', 'Boltzman Machine']
 
 def algo0():
-    print('Algoritmo 0')
+    print(ALGORITMOS[0])
 
 def algo1():
-    print('Algoritmo 1')
+    print(ALGORITMOS[1])
 
 def algo2():
-    print('Algoritmo 2')
+    print(ALGORITMOS[2])
+
+def algo3():
+    print(ALGORITMOS[3])
 
 def intro():
-    print('UNDIRECTED GRAPHICAL MODELS')
+    cls()
+    print('---------------------------\n',
+    'UNDIRECTED GRAPHICAL MODELS\n',
+    '---------------------------\n')
     for i, algo in enumerate(ALGORITMOS):
-        print(i, algo)
-    
+        print("\t", i, algo)
+    print("\t" ,4, "Salir\n\n")
+
+def switch_error():
+    print('\nIngrese la opción correcta\n')
+
+def exit():
+    print('Adiós')
+    quit()
+
 def algoritmos():
-    error = 'Ingrese la opción correcta'
     
     switch = {
         0: algo0,
         1: algo1,
         2: algo2,
-        3: quit,
+        3: algo3,
+        4: exit,
     }
 
     while True:
         opc = int(input('Ingrese su opción: '))
-        switch.get(opc, error)()
+        switch.get(opc, switch_error)()
 
 
-def main():
-    # intro()
-    # algoritmos()
+def file_reader(file_name):
     cwd = os.getcwd()
-    data_dir = cwd + '\data.txt'
+    data_dir = cwd + file_name
     data = []
     with open(data_dir) as data_file:
         csv_reader = csv.reader(data_file, delimiter=',')
         for row in csv_reader:
             data.append(row)
+    return data
 
-    for row in data:
-        print(row)
 
+def main():
+    intro()
+    X = file_reader('\data.txt')
+    algoritmos()
+    
+ 
 
 if __name__=='__main__':
     main() 
