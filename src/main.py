@@ -1,3 +1,6 @@
+import csv
+import os
+
 ALGORITMOS = ['ALGO1', 'ALGO2', 'ALGO3']
 
 def algo0():
@@ -30,8 +33,18 @@ def algoritmos():
 
 
 def main():
-    intro()
-    algoritmos()
+    # intro()
+    # algoritmos()
+    cwd = os.getcwd()
+    data_dir = cwd + '\data.txt'
+    data = []
+    with open(data_dir) as data_file:
+        csv_reader = csv.reader(data_file, delimiter=',')
+        for row in csv_reader:
+            data.append(row)
+
+    for row in data:
+        print(row)
 
 
 if __name__=='__main__':

@@ -9,7 +9,6 @@ class UndirectedGraphicalModels():
     # Grafos no dirigidos
     # Cadenas de Markov
         
-        
     def modified_regression( X, alpha=0.01, max_iter = 100, convg_threshold=0.001 ):
         ''' This function computes the graphical lasso algorithm as outlined in Sparse inverse covariance estimation with the
             graphical lasso (2007).
