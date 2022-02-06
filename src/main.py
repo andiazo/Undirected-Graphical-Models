@@ -4,19 +4,27 @@ import os
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
-ALGORITMOS = ['Graphical Lasso Algorithm', 'Modified Regression Algorithm', 'Markov Chain', 'Boltzman Machine']
+ALGORITMOS = ['Graphical Lasso Algorithm', 'Modified Regression Algorithm', 'Markov Chain', 'Restricted Boltzman Machine']
 
 def algo0():
     print(ALGORITMOS[0])
+    # Read data
+    X = file_reader('\data.txt') 
 
 def algo1():
     print(ALGORITMOS[1])
+    # Read data
+    X = file_reader('\data.txt')
 
 def algo2():
     print(ALGORITMOS[2])
+    # Read data
+    X = file_reader('\data.txt')
 
 def algo3():
     print(ALGORITMOS[3])
+    # Read data
+    X = file_reader('\data.txt')
 
 def intro():
     cls()
@@ -62,7 +70,6 @@ def file_reader(file_name):
 
 def main():
     intro()
-    X = file_reader('\data.txt')
     algoritmos()
     
  
