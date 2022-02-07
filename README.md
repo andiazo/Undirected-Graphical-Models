@@ -44,7 +44,7 @@ py main.py
 
 Saldrá la siguiente interfaz
 
-![Interfaz de consola](UI.png "Interfaz")
+![Interfaz de consola](UI.PNG "Interfaz")
 
 Donde puede elegir una de las cinco opciones a ejecutar.
 
