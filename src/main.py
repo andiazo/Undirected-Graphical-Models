@@ -1,4 +1,19 @@
 from modules import rbm
+import os
+import csv
+
+def file_reader(file_name):
+    cwd = os.getcwd()
+    data_dir = cwd + '\\' + file_name
+    data = []
+    with open(data_dir) as data_file:
+        csv_reader = csv.reader(data_file, delimiter=',')
+        for row in csv_reader:
+            for i in range(0, len(row)):
+                row[i] = int(row[i])
+            data.append(row)
+    print(data)
+    return data
 
 ALGORITMOS = ['ALGO1', 'ALGO2', 'ALGO3']
 
@@ -10,6 +25,8 @@ def algo1():
 
 def algo2():
     print('Restricted Boltzman Machines')
+    data = file_reader('data.txt')
+    rbm.execute(data)
 
 def intro():
     print('UNDIRECTED GRAPHICAL MODELS')
