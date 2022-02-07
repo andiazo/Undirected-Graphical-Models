@@ -1,5 +1,16 @@
 from __future__ import print_function
 import numpy as np
+import csv
+
+def file_reader(file_name):
+    cwd = os.getcwd()
+    data_dir = cwd + file_name
+    data = []
+    with open(data_dir) as data_file:
+        csv_reader = csv.reader(data_file, delimiter=',')
+        for row in csv_reader:
+            data.append(row)
+    return data
 
 class rbm:
   
@@ -167,9 +178,10 @@ class rbm:
   def _logistic(self, x):
     return 1.0 / (1 + np.exp(-x))
 
-if __name__ == '__main__':
+def execute(data):
+
   r = rbm(num_visible = 6, num_hidden = 2)
-  training_data = np.array([[1,1,1,0,0,0],[1,0,1,0,0,0],[1,1,1,0,0,0],[0,0,1,1,1,0], [0,0,1,1,0,0],[0,0,1,1,1,0]])
+  training_data = np.array(data)
   r.train(training_data, max_epochs = 3000)
   print(r.weights)
   user = np.array([[0,0,0,1,1,0]])

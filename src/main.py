@@ -1,3 +1,5 @@
+from modules import rbm
+
 ALGORITMOS = ['ALGO1', 'ALGO2', 'ALGO3']
 
 def algo0():
