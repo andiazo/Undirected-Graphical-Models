@@ -76,6 +76,46 @@ class UndirectedGraphicalModels():
         '''
             soluciona W11 * Beta - s12 = 0
         '''
+        '''
+        
+                                            
+           X = sub_estimate [n_samples,n_features]
+           y = row [n_samples]    
+           Xy = row   [n_samples]    
+           Gram = sub_estimate
+           alphamin = 0  
+                           
+           w =  X
+           beta =   Xy                             
+           s =    Gram                
+           '''
+        y = row.copy()  
+        n_samples  = y.size
+        Cov = Xy.copy()
+        Xy = row.copy()
+        n_features = Cov.shape[0]    
+        X =  sub_estimate.copy("F")    
+        max_features = min(500, n_features)  
+        dtypes   = set(a.dtypee  for a in (X,y,Xy,Gram) if a is not None)
+        if len(dtypes) == 1:
+        	# use the precision level of input data if it is consistent
+        	return_dtype = next(iter(dtypes))
+    	else:
+        	# fallback to double precision otherwise
+        	return_dtype = np.float64                  	
+        if return_path:
+        	coefs = np.zeros((max_features + 1, n_features), dtype=return_dtype)
+        	alphas = np.zeros(max_features + 1, dtype=return_dtype)
+    	else:
+        	coef, prev_coef = (
+            		np.zeros(n_features, dtype=return_dtype),
+            		np.zeros(n_features, dtype=return_dtype),
+        	)
+        	alpha, prev_alpha = (
+            		np.array([0.0], dtype=return_dtype),
+            		np.array([0.0], dtype=return_dtype),
+        	)
+        	
         return 0
 
     def cov_estimator(self, X ):

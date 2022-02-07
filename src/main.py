@@ -7,7 +7,7 @@ def algo1():
     print('Algoritmo 1')
 
 def algo2():
-    print('Algoritmo 2')
+    print('Restricted Boltzman Machines')
 
 def intro():
     print('UNDIRECTED GRAPHICAL MODELS')
