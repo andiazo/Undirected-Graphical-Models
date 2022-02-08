@@ -95,19 +95,19 @@ class UndirectedGraphicalModels():
         dtypes   = set(a.dtypee  for a in (X,y,Xy,Gram) if a is not None)
         if len(dtypes) == 1:
         	# use the precision level of input data if it is consistent
-        	return_dtype = next(iter(dtypes))
-    	else:
+            return_dtype = next(iter(dtypes))
+        else:
         	# fallback to double precision otherwise
-        	return_dtype = np.float64                  	
+            return_dtype = np.float64                  	
         if return_path:
-        	coefs = np.zeros((max_features + 1, n_features), dtype=return_dtype)
-        	alphas = np.zeros(max_features + 1, dtype=return_dtype)
-    	else:
-        	coef, prev_coef = (
+            coefs = np.zeros((max_features + 1, n_features), dtype=return_dtype)
+            alphas = np.zeros(max_features + 1, dtype=return_dtype)
+        else:
+            coef, prev_coef = (
             		np.zeros(n_features, dtype=return_dtype),
             		np.zeros(n_features, dtype=return_dtype),
         	)
-        	alpha, prev_alpha = (
+            alpha, prev_alpha = (
             		np.array([0.0], dtype=return_dtype),
             		np.array([0.0], dtype=return_dtype),
         	)

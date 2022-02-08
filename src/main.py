@@ -1,6 +1,7 @@
 import csv
 import os
-from .modules import rbm
+from modules.markov_chain import MarkovChain
+from modules.rbm import rbm
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -14,33 +15,45 @@ def algo0():
 
 def algo1():
     print(ALGORITMOS[1])
-    # Read data
     X = file_reader('\data.txt')
+
 
 def algo2():
-    print('Restricted Boltzman Machines')
-    data = file_reader('data.txt')
-    rbm.execute(data)
+    """
+    Markov Chain
+    """
     print(ALGORITMOS[2])
-    # Read data
     X = file_reader('\data.txt')
+    states = ['Dormir', 'Comer', 'Correr']
+    trans_matrix = [[0.1,0.3,0.6],[0.2,0.3,0.5],[0.2,0.4,0.4]]
+    MarkovChain(states, trans_matrix)
 
 def algo3():
+    """
+    Restricted Boltzman Machine
+    """
     print(ALGORITMOS[3])
+    data = file_reader('data.txt')
+    rbm.execute(data)
+    
     # Read data
     X = file_reader('\data.txt')
 
-def intro():
-    cls()
+def menu():
     print('---------------------------\n',
     'UNDIRECTED GRAPHICAL MODELS\n',
     '---------------------------\n')
     for i, algo in enumerate(ALGORITMOS):
         print("\t", i, algo)
-    print("\t" ,4, "Salir\n\n")
+    print("\t" ,4, "Salir\n")
+
+def intro():
+    # cls()
+    menu()
 
 def switch_error():
     print('\nIngrese la opción correcta\n')
+    menu()
 
 def exit():
     print('Adiós')
