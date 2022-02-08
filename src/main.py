@@ -1,57 +1,82 @@
-from modules import rbm
-import os
 import csv
+import os
+from .modules import rbm
 
-def file_reader(file_name):
-    cwd = os.getcwd()
-    data_dir = cwd + '\\' + file_name
-    data = []
-    with open(data_dir) as data_file:
-        csv_reader = csv.reader(data_file, delimiter=',')
-        for row in csv_reader:
-            for i in range(0, len(row)):
-                row[i] = int(row[i])
-            data.append(row)
-    print(data)
-    return data
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
-ALGORITMOS = ['ALGO1', 'ALGO2', 'ALGO3']
+ALGORITMOS = ['Graphical Lasso Algorithm', 'Modified Regression Algorithm', 'Markov Chain', 'Restricted Boltzman Machine']
 
 def algo0():
-    print('Algoritmo 0')
+    print(ALGORITMOS[0])
+    # Read data
+    X = file_reader('\data.txt') 
 
 def algo1():
-    print('Algoritmo 1')
+    print(ALGORITMOS[1])
+    # Read data
+    X = file_reader('\data.txt')
 
 def algo2():
     print('Restricted Boltzman Machines')
     data = file_reader('data.txt')
     rbm.execute(data)
+    print(ALGORITMOS[2])
+    # Read data
+    X = file_reader('\data.txt')
+
+def algo3():
+    print(ALGORITMOS[3])
+    # Read data
+    X = file_reader('\data.txt')
 
 def intro():
-    print('UNDIRECTED GRAPHICAL MODELS')
+    cls()
+    print('---------------------------\n',
+    'UNDIRECTED GRAPHICAL MODELS\n',
+    '---------------------------\n')
     for i, algo in enumerate(ALGORITMOS):
-        print(i, algo)
-    
+        print("\t", i, algo)
+    print("\t" ,4, "Salir\n\n")
+
+def switch_error():
+    print('\nIngrese la opción correcta\n')
+
+def exit():
+    print('Adiós')
+    quit()
+
 def algoritmos():
-    error = 'Ingrese la opción correcta'
     
     switch = {
         0: algo0,
         1: algo1,
         2: algo2,
-        3: quit,
+        3: algo3,
+        4: exit,
     }
 
     while True:
         opc = int(input('Ingrese su opción: '))
-        switch.get(opc, error)()
+        switch.get(opc, switch_error)()
+
+
+def file_reader(file_name):
+    cwd = os.getcwd()
+    data_dir = cwd + file_name
+    data = []
+    with open(data_dir) as data_file:
+        csv_reader = csv.reader(data_file, delimiter=',')
+        for row in csv_reader:
+            data.append(row)
+    return data
 
 
 def main():
     intro()
     algoritmos()
-
+    
+ 
 
 if __name__=='__main__':
     main() 

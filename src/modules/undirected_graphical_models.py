@@ -5,10 +5,6 @@ class UndirectedGraphicalModels():
     
     def __init__(self) -> None:
         pass
-    
-    # Grafos no dirigidos
-    # Cadenas de Markov
-        
         
     def modified_regression( X, alpha=0.01, max_iter = 100, convg_threshold=0.001 ):
         ''' This function computes the graphical lasso algorithm as outlined in Sparse inverse covariance estimation with the
@@ -30,11 +26,11 @@ class UndirectedGraphicalModels():
                 column, and part 2: the jth row and column.
                 b. Solve W_11*beta* - s_12* = 0 for the unconstrained edge parameters
                 beta*, using the reduced system of equations as in (19.19). Obtain
-                beta (beta gorro) by padding beta gorro * with zeros in appropiate 
+                beta (beta hat) by padding beta hat * with zeros in appropiate 
                 positions.
-                c. Update w12 = W11 beta gorro
-            3. In the final cycle (for each j) solve for teta_12 gorro = -beta gorro . teta gorro _22,
-            with 1/tetagorro_22 = s22 - w.T_12 . beta gorro
+                c. Update w12 = W11 beta hat
+            3. In the final cycle (for each j) solve for teta_12 hat = -beta hat . teta hat _22,
+            with 1/tetahat_22 = s22 - w.T_12 . beta hat
         '''
         
         if alpha == 0:
