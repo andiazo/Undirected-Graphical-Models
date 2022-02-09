@@ -1,6 +1,6 @@
 import csv
 import os
-from modules.markov_chain import MarkovChain
+
 from modules.rbm import rbm
 
 def cls():
@@ -26,7 +26,6 @@ def algo2():
     X = file_reader('\data.txt')
     states = ['Dormir', 'Comer', 'Correr']
     trans_matrix = [[0.1,0.3,0.6],[0.2,0.3,0.5],[0.2,0.4,0.4]]
-    MarkovChain(states, trans_matrix)
 
 def algo3():
     """
@@ -76,7 +75,7 @@ def algoritmos():
 
 def file_reader(file_name):
     cwd = os.getcwd()
-    data_dir = cwd + file_name
+    data_dir = cwd + '/' + file_name
     data = []
     with open(data_dir) as data_file:
         csv_reader = csv.reader(data_file, delimiter=',')

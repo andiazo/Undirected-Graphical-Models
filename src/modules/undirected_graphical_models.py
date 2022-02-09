@@ -71,9 +71,6 @@ class UndirectedGraphicalModels():
     def eq_19(w,beta,s):
         '''
             soluciona W11 * Beta - s12 = 0
-        '''
-        '''
-        
                                             
            X = sub_estimate [n_samples,n_features]
            y = row [n_samples]    

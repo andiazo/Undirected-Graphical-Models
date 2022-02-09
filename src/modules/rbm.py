@@ -170,11 +170,23 @@ class rbm:
   def _logistic(self, x):
     return 1.0 / (1 + np.exp(-x))
 
-def execute(data):
+  def execute(data):
+#     data =[[1,1,1,0,0,0],
+#   [1,0,1,0,0,0],
+# [1,1,1,0,0,0],
+# [0,0,1,1,1,0],
+# [0,0,1,1,0,0],
+# [0,0,1,1,1,0]]
+    p_data = []
+    for row in data:
+      i_map = map(int, row)
+      i_list = list(i_map)
+      p_data.append(i_list)
 
-  r = rbm(num_visible = 6, num_hidden = 2)
-  training_data = np.array(data)
-  r.train(training_data, max_epochs = 3000)
-  print(r.weights)
-  user = np.array([[0,0,0,1,1,0]])
-  print(r.run_visible(user))
+    r = rbm(num_visible = 6, num_hidden = 2)
+    training_data = np.array(p_data)
+    print(training_data)
+    r.train(training_data, max_epochs = 3000)
+    print(r.weights)
+    user = np.array([[0,0,0,1,1,0]])
+    print(r.run_visible(user))
