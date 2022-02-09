@@ -6,124 +6,17 @@ class UndirectedGraphicalModels():
     def __init__(self) -> None:
         pass
         
-    def modified_regression( X, alpha=0.01, max_iter = 100, convg_threshold=0.001 ):
-        ''' This function computes the graphical lasso algorithm as outlined in Sparse inverse covariance estimation with the
-            graphical lasso (2007).
-            
-        inputs:
-            X: the data matrix, size (nxd)
-            alpha: the coefficient of penalization, higher values means more sparseness.
-            max_iter: maximum number of iterations
-            convg_threshold: Stop the algorithm when the duality gap is below a certain threshold.
-    
-        -------------------------------------------------------------------
-        Algorithm 19.1 A Modified Regression Algorithm for Estimation of an 
-        Undirected Gaussian Graphical Model with Known Structure.
-        -------------------------------------------------------------------
-            1. Initialize W = S
-            2. Repeat for j = 1,2,...,p,1,2,...,p... until convergence:
-                a. Partition the matrix W into part 1: all but the jth row and
-                column, and part 2: the jth row and column.
-                b. Solve W_11*beta* - s_12* = 0 for the unconstrained edge parameters
-                beta*, using the reduced system of equations as in (19.19). Obtain
-                beta (beta hat) by padding beta hat * with zeros in appropiate 
-                positions.
-                c. Update w12 = W11 beta hat
-            3. In the final cycle (for each j) solve for teta_12 hat = -beta hat . teta hat _22,
-            with 1/tetahat_22 = s22 - w.T_12 . beta hat
-        '''
-        
-        if alpha == 0:
-            return cov_estimator( X )
-        n_features = X.shape[1]
-
-        mle_estimate_ = cov_estimator(X)
-        covariance_ = mle_estimate_.copy()
-        precision_ = np.linalg.pinv( mle_estimate_ )
-        indices = np.arange( n_features)
-        for i in xrange( max_iter):
-            for n in range( n_features ):
-                sub_estimate = covariance_[ indices != n ].T[ indices != n ]
-                row = mle_estimate_[ n, indices != n]
-                #solve the lasso problem
-                _, _, coefs_ = eq_19( sub_estimate, row, Xy = row, Gram = sub_estimate, 
-                                            alpha_min = alpha/(n_features-1.), copy_Gram = True,
-                                            method = "lars")
-                coefs_ = coefs_[:,-1] #just the last please.
-            #update the precision matrix.
-                precision_[n,n] = 1./( covariance_[n,n] 
-                                        - np.dot( covariance_[ indices != n, n ], coefs_  ))
-                precision_[indices != n, n] = - precision_[n, n] * coefs_
-                precision_[n, indices != n] = - precision_[n, n] * coefs_
-                temp_coefs = np.dot( sub_estimate, coefs_)
-                covariance_[ n, indices != n] = temp_coefs
-                covariance_[ indices!=n, n ] = temp_coefs
-            
-            #if test_convergence( old_estimate_, new_estimate_, mle_estimate_, convg_threshold):
-            if np.abs( _dual_gap( mle_estimate_, precision_, alpha ) )< convg_threshold:
-                    break
-        else:
-            #this triggers if not break command occurs
-            print("The algorithm did not coverge. Try increasing the max number of iterations.")
-        
-        return covariance_, precision_
-
-    def eq_19(w,beta,s):
-        '''
-            soluciona W11 * Beta - s12 = 0
-                                            
-           X = sub_estimate [n_samples,n_features]
-           y = row [n_samples]    
-           Xy = row   [n_samples]    
-           Gram = sub_estimate
-           alphamin = 0  
-                           
-           w =  X
-           beta =   Xy                             
-           s =    Gram                
-           '''
-        y = row.copy()  
-        n_samples  = y.size
-        Cov = Xy.copy()
-        Xy = row.copy()
-        n_features = Cov.shape[0]    
-        X =  sub_estimate.copy("F")    
-        max_features = min(500, n_features)  
-        dtypes   = set(a.dtypee  for a in (X,y,Xy,Gram) if a is not None)
-        if len(dtypes) == 1:
-        	# use the precision level of input data if it is consistent
-            return_dtype = next(iter(dtypes))
-        else:
-        	# fallback to double precision otherwise
-            return_dtype = np.float64                  	
-        if return_path:
-            coefs = np.zeros((max_features + 1, n_features), dtype=return_dtype)
-            alphas = np.zeros(max_features + 1, dtype=return_dtype)
-        else:
-            coef, prev_coef = (
-            		np.zeros(n_features, dtype=return_dtype),
-            		np.zeros(n_features, dtype=return_dtype),
-        	)
-            alpha, prev_alpha = (
-            		np.array([0.0], dtype=return_dtype),
-            		np.array([0.0], dtype=return_dtype),
-        	)
-        	
-        return 0
-
-    def cov_estimator(self, X ):
+    def cov_estimator( X ):
         return np.cov( X.T) 
         
-    # Este metodo es igual al 19.1 pero solucionando otra ecuación
-    def graphical_lasso( X, alpha=0.01, max_iter = 100, convg_threshold=0.001 ):
-        """ This function computes the graphical lasso algorithm as outlined in Sparse inverse covariance estimation with the
-            graphical lasso (2007).
+    def graphical_lasso(X, alpha=0.01, max_iter = 100, convg_threshold=0.001 ):
+        """ Esta función implementa el algoritmo 19.2
             
-        inputs:
-            X: the data matrix, size (nxd)
-            alpha: the coefficient of penalization, higher values means more sparseness.
-            max_iter: maximum number of iterations
-            convg_threshold: Stop the algorithm when the duality gap is below a certain threshold.
+        Parametros:
+            X: Los datos de entrada
+            alpha: Coeficiente de penalización
+            max_iter: Número máximo de iteraciones
+            convg_threshold: Umbral de convergencia.
         """
         
         if alpha == 0:
