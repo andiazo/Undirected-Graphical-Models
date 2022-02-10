@@ -46,7 +46,7 @@ Saldrá la siguiente interfaz
 
 ![Interfaz de consola](UI.PNG "Interfaz")
 
-Donde puede elegir una de las cinco opciones a ejecutar.
+Donde puede elegir una de las 3 opciones a ejecutar.
 
 Por último, verá sus resultados impresos por consola.
 
