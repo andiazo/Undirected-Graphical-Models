@@ -1,6 +1,7 @@
 import csv
 import os
 import numpy as np
+import seaborn as sns
 from modules.rbm import rbm
 from modules.undirected_graphical_models import UndirectedGraphicalModels
 
@@ -16,8 +17,17 @@ def algo0():
     data.pop(0)
     ugm = UndirectedGraphicalModels()
     cov, prec = UndirectedGraphicalModels.graphical_lasso(ugm, data)
+    ax = sns.heatmap(cov, cmap="YlGnBu")
+    fig = ax.get_figure()
+    fig.savefig("imgs/covarianza.png") 
+
+    ax = sns.heatmap(prec, cmap="YlGnBu")
+    fig = ax.get_figure()
+    fig.savefig("imgs/precision.png")
+    print("Covarianza: ")
     print(cov)
-    print("------------\n",prec)
+    print("\nPrecisión: ")
+    print(prec)
 
 def algo1():
     """
