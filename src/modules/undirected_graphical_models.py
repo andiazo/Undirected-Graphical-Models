@@ -35,12 +35,13 @@ class UndirectedGraphicalModels():
             for n in range( n_features ):
                 sub_estimate = covariance_[ indices != n ].T[ indices != n ]
                 row = mle_estimate_[ n, indices != n]
-                #solve the lasso problem
+                # Soluciona el problema del Lasso
                 _, _, coefs_ = lars_path( sub_estimate, row, Xy = row, Gram = sub_estimate, 
                                             alpha_min = alpha/(n_features-1.), copy_Gram = True,
                                             method = "lars")
-                coefs_ = coefs_[:,-1] #just the last please.
-            #update the precision matrix.
+                coefs_ = coefs_[:,-1] 
+                
+                # Actualiza la matriz de precisión.
                 precision_[n,n] = 1./( covariance_[n,n] 
                                         - np.dot( covariance_[ indices != n, n ], coefs_  ))
                 precision_[indices != n, n] = - precision_[n, n] * coefs_
@@ -48,34 +49,18 @@ class UndirectedGraphicalModels():
                 temp_coefs = np.dot( sub_estimate, coefs_)
                 covariance_[ n, indices != n] = temp_coefs
                 covariance_[ indices!=n, n ] = temp_coefs
-            
-            #if test_convergence( old_estimate_, new_estimate_, mle_estimate_, convg_threshold):
+        
             if np.abs( self._dual_gap( mle_estimate_, precision_, alpha ) )< convg_threshold:
                     break
         else:
-            #this triggers if not break command occurs
-            print("The algorithm did not coverge. Try increasing the max number of iterations.")
+            print("Alcanzo el numero máximo de iteraciones, el algoritmo no converge.")
         
         return covariance_, precision_
         
     def cov_estimator(self, X ):
         return np.cov( X.T) 
-        
-    def test_convergence(self, previous_W, new_W, S, t):
-        d = S.shape[0]
-        x = np.abs( previous_W - new_W ).mean()
-        print(x - t*( np.abs(S).sum() + np.abs( S.diagonal() ).sum() )/(d*d-d))
-        if np.abs( previous_W - new_W ).mean() < t*( np.abs(S).sum() + np.abs( S.diagonal() ).sum() )/(d*d-d):
-            return True
-        else:
-            return False
 
     def _dual_gap(self, emp_cov, precision_, alpha):
-        """Expression of the dual gap convergence criterion
-
-        The specific definition is given in Duchi "Projected Subgradient Methods
-        for Learning Sparse Gaussians".
-        """
         gap = np.sum(emp_cov * precision_)
         gap -= precision_.shape[0]
         gap += alpha * (np.abs(precision_).sum()

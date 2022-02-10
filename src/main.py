@@ -2,6 +2,7 @@ import csv
 import os
 import numpy as np
 import seaborn as sns
+from sklearn.covariance import GraphicalLasso
 from modules.rbm import rbm
 from modules.undirected_graphical_models import UndirectedGraphicalModels
 
@@ -28,6 +29,16 @@ def algo0():
     print(cov)
     print("\nPrecisión: ")
     print(prec)
+
+    # Se prueba 
+    true_cov = np.array([[0.8, 0.0, 0.2, 0.0],[0.0, 0.4, 0.0, 0.0],[0.2, 0.0, 0.3, 0.1],[0.0, 0.0, 0.1, 0.7]])
+    np.random.seed(0)
+    X = np.random.multivariate_normal(mean=[0, 0, 0, 0],cov=true_cov,size=200)
+    covsk = GraphicalLasso().fit(X)
+    ax = sns.heatmap(covsk.covariance_, cmap="YlGnBu")
+    fig = ax.get_figure()
+    fig.savefig("imgs/covarianzasklearn.png")
+    
 
 def algo1():
     """
