@@ -50,6 +50,14 @@ Donde puede elegir una de las 3 opciones a ejecutar.
 
 Por último, verá sus resultados impresos por consola.
 
-# Descripcion
-
 # Autores
+
+Camilo Cardona - ancardonac@unal.edu.co
+
+Andrés Díaz - andiazo@unal.edu.co
+
+Hamed Mohseni - hamohseni@unal.edu.co
+
+Gustavo Mojica - gmojica@unal.edu.co
+Lorraine Rojas - ljrojasp@unal.edu.co
+
