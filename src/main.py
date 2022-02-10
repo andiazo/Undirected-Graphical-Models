@@ -6,7 +6,7 @@ from modules.rbm import rbm
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
-ALGORITMOS = ['Graphical Lasso Algorithm', 'Modified Regression Algorithm', 'Markov Chain', 'Restricted Boltzman Machine']
+ALGORITMOS = ['Graphical Lasso Algorithm', 'Restricted Boltzman Machine', 'Markov Network']
 
 def algo0():
     print(ALGORITMOS[0])
@@ -14,29 +14,24 @@ def algo0():
     X = file_reader('\data.txt') 
 
 def algo1():
+    """
+    Restricted Boltzman Machine
+    """
     print(ALGORITMOS[1])
-    X = file_reader('\data.txt')
-
-
+    data = file_reader('data.txt')
+    data.pop(0)
+    rbm.execute(data)
+    
 def algo2():
     """
-    Markov Chain
+    Markov Network
     """
     print(ALGORITMOS[2])
     X = file_reader('\data.txt')
     states = ['Dormir', 'Comer', 'Correr']
     trans_matrix = [[0.1,0.3,0.6],[0.2,0.3,0.5],[0.2,0.4,0.4]]
 
-def algo3():
-    """
-    Restricted Boltzman Machine
-    """
-    print(ALGORITMOS[3])
-    data = file_reader('data.txt')
-    rbm.execute(data)
-    
-    # Read data
-    X = file_reader('\data.txt')
+
 
 def menu():
     print('---------------------------\n',
@@ -44,7 +39,7 @@ def menu():
     '---------------------------\n')
     for i, algo in enumerate(ALGORITMOS):
         print("\t", i, algo)
-    print("\t" ,4, "Salir\n")
+    print("\t", 3, "Salir\n")
 
 def intro():
     # cls()
@@ -64,8 +59,7 @@ def algoritmos():
         0: algo0,
         1: algo1,
         2: algo2,
-        3: algo3,
-        4: exit,
+        3: exit,
     }
 
     while True:
