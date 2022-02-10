@@ -171,15 +171,9 @@ class rbm:
     return 1.0 / (1 + np.exp(-x))
 
   def execute(data):
-#     data =[[1,1,1,0,0,0],
-#   [1,0,1,0,0,0],
-# [1,1,1,0,0,0],
-# [0,0,1,1,1,0],
-# [0,0,1,1,0,0],
-# [0,0,1,1,1,0]]
     p_data = []
     for row in data:
-      i_map = map(int, row)
+      i_map = map(round, row)
       i_list = list(i_map)
       p_data.append(i_list)
 

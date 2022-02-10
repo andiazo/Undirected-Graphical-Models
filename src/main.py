@@ -1,17 +1,23 @@
 import csv
 import os
-
+import numpy as np
 from modules.rbm import rbm
+from modules.undirected_graphical_models import UndirectedGraphicalModels
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
-ALGORITMOS = ['Graphical Lasso Algorithm', 'Restricted Boltzman Machine', 'Markov Network']
+ALGORITMOS = ['Graphical Lasso Algorithm', 'Restricted Boltzman Machine']
 
 def algo0():
     print(ALGORITMOS[0])
     # Read data
-    X = file_reader('\data.txt') 
+    data = file_reader('\data.txt') 
+    data.pop(0)
+    ugm = UndirectedGraphicalModels()
+    cov, prec = UndirectedGraphicalModels.graphical_lasso(ugm, data)
+    print(cov)
+    print("------------\n",prec)
 
 def algo1():
     """
@@ -21,17 +27,6 @@ def algo1():
     data = file_reader('data.txt')
     data.pop(0)
     rbm.execute(data)
-    
-def algo2():
-    """
-    Markov Network
-    """
-    print(ALGORITMOS[2])
-    X = file_reader('\data.txt')
-    states = ['Dormir', 'Comer', 'Correr']
-    trans_matrix = [[0.1,0.3,0.6],[0.2,0.3,0.5],[0.2,0.4,0.4]]
-
-
 
 def menu():
     print('---------------------------\n',
@@ -39,7 +34,7 @@ def menu():
     '---------------------------\n')
     for i, algo in enumerate(ALGORITMOS):
         print("\t", i, algo)
-    print("\t", 3, "Salir\n")
+    print("\t", 2, "Salir\n")
 
 def intro():
     # cls()
@@ -58,8 +53,7 @@ def algoritmos():
     switch = {
         0: algo0,
         1: algo1,
-        2: algo2,
-        3: exit,
+        2: exit,
     }
 
     while True:

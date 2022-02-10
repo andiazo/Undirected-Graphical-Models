@@ -6,28 +6,32 @@ class UndirectedGraphicalModels():
     def __init__(self) -> None:
         pass
         
-    def cov_estimator( X ):
-        return np.cov( X.T) 
-        
-    def graphical_lasso(X, alpha=0.01, max_iter = 100, convg_threshold=0.001 ):
+    def graphical_lasso(self, data, alpha=0.01, max_iter = 100, convg_threshold=0.001 ):
         """ Esta función implementa el algoritmo 19.2
             
         Parametros:
-            X: Los datos de entrada
+            data: Los datos de entrada
             alpha: Coeficiente de penalización
             max_iter: Número máximo de iteraciones
             convg_threshold: Umbral de convergencia.
         """
+        p_data = []
+        for row in data:
+            i_map = map(float, row)
+            i_list = list(i_map)
+            p_data.append(i_list)
+
+        X = np.array(p_data) 
         
         if alpha == 0:
-            return cov_estimator( X )
+            return self.cov_estimator( X )
         n_features = X.shape[1]
 
-        mle_estimate_ = cov_estimator(X)
+        mle_estimate_ = self.cov_estimator(X)
         covariance_ = mle_estimate_.copy()
         precision_ = np.linalg.pinv( mle_estimate_ )
         indices = np.arange( n_features)
-        for i in xrange( max_iter):
+        for i in range( max_iter):
             for n in range( n_features ):
                 sub_estimate = covariance_[ indices != n ].T[ indices != n ]
                 row = mle_estimate_[ n, indices != n]
@@ -46,7 +50,7 @@ class UndirectedGraphicalModels():
                 covariance_[ indices!=n, n ] = temp_coefs
             
             #if test_convergence( old_estimate_, new_estimate_, mle_estimate_, convg_threshold):
-            if np.abs( _dual_gap( mle_estimate_, precision_, alpha ) )< convg_threshold:
+            if np.abs( self._dual_gap( mle_estimate_, precision_, alpha ) )< convg_threshold:
                     break
         else:
             #this triggers if not break command occurs
@@ -54,6 +58,8 @@ class UndirectedGraphicalModels():
         
         return covariance_, precision_
         
+    def cov_estimator(self, X ):
+        return np.cov( X.T) 
         
     def test_convergence(self, previous_W, new_W, S, t):
         d = S.shape[0]
